@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Perfil</title>
+<!-- Required meta tags -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+
+</head>
+<body>
+	<nav th:replace="fragments/header_loader"></nav>
+
+
+	<div class="container-sm ">
+		<div class="card">
+			<div class="card-body">
+
+				<h1>
+					El perfil de usuario de <span th:text="${profesor.nombreProfesor}"></span>
+				</h1>
+				<div>
+					<b>Nombre:</b> <span th:text="${profesor.nombreProfesor}"></span>
+				</div>
+				<div>
+					<b>Apellidos:</b> <span th:text="${profesor.apellidosProfesor}"></span>
+				</div>
+				<div>
+					<b>Nombre de Usuario:</b> <span th:text="${profesor.username}"></span>
+				</div>
+
+				<div th:if="${propietario}">
+
+					<a
+						th:href="@{/profesor/perfil/actualizar/{idProfesor}(idProfesor=${profesor.idProfesor})}"
+						class="btn btn-info">Editar Perfil <i class="fas fa-user-edit"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="emails">
+
+		<div class="email">
+			<div class="card">
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">Email:</th>
+						</tr>
+
+					</thead>
+					<tbody>
+						<tr th:if="${profesor.emails.empty}">
+							<td colspan="2">No existen emails</td>
+						</tr>
+						<tr th:each="email : ${profesor.emails}">
+							<td><span th:text="${email.direccionEmail}"> email </span></td>
+
+							<td
+								th:if="${propietario || #authorization.expression('hasAuthority(''ROL_ADMIN'')')}">
+								<a
+								th:href="@{/profesor/eliminar_email/{idProfesor}/{idEmail}(idProfesor=${profesor.idProfesor},idEmail=${email.idEmail})}"
+								class="btn btn-danger"><i class="fas fa-trash"></i></a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="email"
+			th:if="${propietario || #authorization.expression('hasAuthority(''ROL_ADMIN'')')}">
+			<div class="card">
+				<div class="container">
+					<form
+						th:action="@{/profesor/anadir_email/{id}(id=${profesor.idProfesor})}"
+						method="post">
+						<div class="form-group">
+							<label for="exampleFormControlInput1">Email address</label> <input
+								type="email" class="form-control" id="exampleFormControlInput1"
+								name="nuevoemail" placeholder="name@example.com">
+						</div>
+						<button type="submit" class="btn btn-primary">Añadir
+							Email</button>
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="container-md">
+		<div class="card">
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">Modulos que imparte</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<tr th:if="${profesor.modulos.empty}">
+						<td colspan="2">No existen modulos asignados</td>
+					</tr>
+					<tr th:each="modulo : ${profesor.modulos}">
+						<td><a th:href="@{/modulo/{id}(id=${modulo.idModulo})}"
+							class="btn btn-primary"><span
+								th:text="${modulo.nombreModulo }"> modulo </span></a></td>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+
+</body>
+</html>

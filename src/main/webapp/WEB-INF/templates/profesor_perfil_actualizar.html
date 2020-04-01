@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Add User</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+	<nav th:replace="fragments/header_loader"></nav>
+
+	<div class="container my-5">
+		<h3>Add User</h3>
+		<div class="card">
+			<div class="card-body">
+				<div class="col-md-10">
+                    <form action="#" th:object="${profesor}" th:action="@{/profesor/perfil/actualizar/{idProfesor}(idProfesor=${profesor.idProfesor})}" method="post">
+						<div class="row">
+
+							<input type="hidden" th:field="*{idProfesor}" id="idProfesor" name="idProfesor" />
+
+
+							<div class="form-group col-md-8">
+								<label for="username" class="col-form-label">Nombre de Usuario</label> 
+								<input type="text" class="form-control"  th:field="*{username}" id="username" placeholder="Nombre de usuario" name="nombreUsuario">
+								<span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger"></span>
+							</div>
+
+
+
+
+<!-- 							<div class="form-group col-md-8"> -->
+<!-- 								<label for="email" class="col-form-label">Email</label> <input -->
+<!-- 									type="text" class="form-control" id="email" name="email" placeholder="Email"> -->
+<!-- 							</div> -->
+
+							<div class="form-group col-md-8">
+								<label for="nombre" class="col-form-label">Nombre</label> 
+								<input type="text" class="form-control" th:field="*{nombreProfesor}" id="nombreProfesor" name="nombreProfesor" placeholder="Nombre">
+								<span th:if="${#fields.hasErrors('nombreProfesor')}" th:errors="*{nombreProfesor}" class="text-danger"></span>
+								
+							</div>
+
+							<div class="form-group col-md-8">
+								<label for="apellidosProfesor" class="col-form-label">Apellidos</label>
+								<input type="text" class="form-control" th:field="*{apellidosProfesor}"  id="apellidosProfesor"	name="apellidosProfesor" placeholder="Apellidos">
+								<span th:if="${#fields.hasErrors('apellidosProfesor')}" th:errors="*{apellidosProfesor}" class="text-danger"></span>
+								
+							</div>
+
+
+							<div class="form-group col-md-8">
+								<label for="password" class="col-form-label">Password</label> 
+								<input type="password" class="form-control" th:field="*{password}" name="password" id="password" placeholder="Password">
+								<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></span>
+									
+							</div>
+							<div class="col-md-6">
+								<input type="submit" class="btn btn-primary" value="Actualizar Perfil">
+							</div>
+
+							<div class="form-group col-md-8"></div>
+
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+	crossorigin="anonymous">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+    <nav sec:authorize="isAnonymous()" th:replace="fragments/header_public"></nav>
+    <nav sec:authorize="hasAuthority('ROL_PROFESOR') && !hasAuthority('ROL_ADMIN')" th:replace="fragments/header_user"></nav>
+    <nav sec:authorize="hasAuthority('ROL_ADMIN')" th:replace="fragments/header_admin"></nav>
+
+
+</body>
+</html>
