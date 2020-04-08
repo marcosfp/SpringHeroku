@@ -35,6 +35,7 @@ public class PersistenceJPAHibernateConfig {
 		final DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
 		dataSource.setUrl(env.getProperty("jdbc.url"));
+		System.out.println("////// \n\n"+dataSource.getUrl().toString());
 		dataSource.setUsername(env.getProperty("jdbc.user"));
 		dataSource.setPassword(env.getProperty("jdbc.pass"));
 		

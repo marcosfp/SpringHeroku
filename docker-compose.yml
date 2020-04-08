@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  spring-service:
+    container_name: spring-service
+    build:
+      context: .
+    image: spring_apache_war
+    ports:
+      - 8080:8080
+    networks:
+      spring-mysql-network:
+networks:
+  spring-mysql-network:
