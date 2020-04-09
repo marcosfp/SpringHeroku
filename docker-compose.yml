@@ -11,3 +11,5 @@ services:
       spring-mysql-network:
 networks:
   spring-mysql-network:
+      external:
+          name: spring_spring-mysql-network
