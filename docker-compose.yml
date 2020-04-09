@@ -6,7 +6,7 @@ services:
       context: .
     image: spring_apache_war
     ports:
-      - 8080:8080
+      - 8081:8080
     networks:
       spring-mysql-network:
 networks:
