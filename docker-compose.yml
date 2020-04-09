@@ -1,15 +1,51 @@
 version: '3.7'
 services:
-  spring-service:
-    container_name: spring-service
-    build:
-      context: .
-    image: spring_apache_war
+  database-service:
+    container_name: database-service
+    image: mysql:5.7
     ports:
-      - 8081:8080
+      - 3306:3306
+    volumes:
+      - /etc/mysql_home:/var/lib/mysql
     networks:
       spring-mysql-network:
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=marcos
+      - MYSQL_PASSWORD=marcos
+      - MYSQL_DATABASE=springprueba_springsecurity
+      - MYSQL_ONETIME_PASSWORD=true
+
+  spring-service:
+    container_name: spring-service
+    image: spring_apache_war
+    depends_on:
+      - database-service
+
+    ports:
+      - 8080:8080
+    links:
+      - database-service
+    networks:
+      spring-mysql-network:
+volumes:
+  db-data:
+
 networks:
   spring-mysql-network:
-      external:
-          name: spring_spring-mysql-network
+  
+#version: '3.7'
+#services:
+#  spring-service:
+#    container_name: spring-service
+#    build:
+#      context: .
+#    image: spring_apache_war
+#    ports:
+#      - 8081:8080
+#    networks:
+#      spring-mysql-network:
+#networks:
+#  spring-mysql-network:
+#      external:
+#          name: spring_spring-mysql-network
